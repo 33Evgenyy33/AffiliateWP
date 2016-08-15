@@ -131,4 +131,19 @@ class Affiliate_WP_Rewrites {
 
 	}
 
+	/**
+	 * Filters on canonical redirects
+	 *
+	 * This was in Affiliate_WP_Tracking until 1.7.8
+	 *
+	 * Deprecated in version 1.9
+	 *
+	 * @since 1.4
+	 * @deprecated 1.9
+	 * @return string
+	 */
+	public function prevent_canonical_redirect( $deprecated = null, $deprecated = null ) {
+		return '';
+	}
+
 }
