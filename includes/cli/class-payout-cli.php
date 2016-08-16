@@ -1,7 +1,8 @@
 <?php
-namespace AffWP\Affiliate\Payout;
+namespace AffWP\Affiliate\Payout\CLI;
 
-use \WP_CLI\Utils as Utils;
+use \AffWP\CLI\Sub_Commands\Base;
+use \WP_CLI\Utils;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.9
  *
- * @see \AffWP\Object\CLI
+ * @see \AffWP\CLI\Sub_Commands\Base
  */
-class CLI extends \AffWP\Object\CLI {
+class Sub_Commands extends Base {
 
 	/**
 	 * Payout display fields.
@@ -42,7 +43,7 @@ class CLI extends \AffWP\Object\CLI {
 	 * @see \AffWP\Affiliate\Payout\CLI\Fetcher
 	 */
 	public function __construct() {
-		$this->fetcher = new CLI\Fetcher();
+		$this->fetcher = new Fetcher();
 	}
 
 	/**
@@ -190,7 +191,7 @@ class CLI extends \AffWP\Object\CLI {
 				$referral_args['amount'] = $amount;
 
 				if ( ! empty( $amount_compare ) ) {
-					$referral_args['amount_compare'] = $amount_compare
+					$referral_args['amount_compare'] = $amount_compare;
 				}
 			}
 
@@ -406,4 +407,4 @@ class CLI extends \AffWP\Object\CLI {
 
 }
 
-\WP_CLI::add_command( 'affwp payout', 'AffWP\Affiliate\Payout\CLI' );
+\WP_CLI::add_command( 'affwp payout', 'AffWP\Affiliate\Payout\CLI\Sub_Commands' );
