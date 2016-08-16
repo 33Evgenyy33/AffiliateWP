@@ -132,17 +132,17 @@ class Affiliate_WP_Rewrites {
 	}
 
 	/**
-	 * Filters on canonical redirects
+	 * Filters on canonical redirects.
 	 *
-	 * This was in Affiliate_WP_Tracking until 1.7.8
-	 *
-	 * Deprecated in version 1.9
+	 * This was in Affiliate_WP_Tracking until 1.7.8, and deprecated in 1.9.
 	 *
 	 * @since 1.4
 	 * @deprecated 1.9
 	 * @return string
 	 */
-	public function prevent_canonical_redirect( $deprecated = null, $deprecated = null ) {
+	public function prevent_canonical_redirect( $redirect_deprecated = null, $requested_deprecated = null ) {
+		_deprecated_function( __METHOD__, '1.9', 'add_rewrite_endpoint( affiliate_wp()->tracking->get_referral_var(), EP_ALL, false );' );
+
 		return '';
 	}
 
