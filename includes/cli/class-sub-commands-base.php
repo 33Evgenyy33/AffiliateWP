@@ -1,5 +1,5 @@
 <?php
-namespace AffWP\Object;
+namespace AffWP\CLI\Sub_Commands;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @see \WP_CLI\CommandWithDBObject
  */
-abstract class CLI extends \WP_CLI\CommandWithDBObject {
+abstract class Base extends \WP_CLI\CommandWithDBObject {
 
 	/**
 	 * Object fields.

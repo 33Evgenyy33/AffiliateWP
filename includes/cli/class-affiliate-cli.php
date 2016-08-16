@@ -1,7 +1,8 @@
 <?php
-namespace AffWP\Affiliate;
+namespace AffWP\Affiliate\CLI;
 
-use \WP_CLI\Utils as Utils;
+use \AffWP\CLI\Sub_Commands\Base;
+use \WP_CLI\Utils;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.9
  *
- * @see \AffWP\Object\CLI
+ * @see \AffWP\CLI\Sub_Commands\Base
  */
-class CLI extends \AffWP\Object\CLI {
+class Sub_Commands extends Base {
 
 	/**
 	 * Affiliate display fields.
@@ -45,7 +46,7 @@ class CLI extends \AffWP\Object\CLI {
 	 * @see \AffWP\Affiliate\CLI\Fetcher
 	 */
 	public function __construct() {
-		$this->fetcher = new CLI\Fetcher();
+		$this->fetcher = new Fetcher();
 	}
 
 	/**
@@ -503,4 +504,4 @@ class CLI extends \AffWP\Object\CLI {
 	}
 }
 
-\WP_CLI::add_command( 'affwp affiliate', 'AffWP\Affiliate\CLI' );
+\WP_CLI::add_command( 'affwp affiliate', 'AffWP\Affiliate\CLI\Sub_Commands' );

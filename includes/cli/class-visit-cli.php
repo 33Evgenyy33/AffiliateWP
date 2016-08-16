@@ -1,7 +1,8 @@
 <?php
-namespace AffWP\Visit;
+namespace AffWP\Visit\CLI;
 
-use \WP_CLI\Utils as Utils;
+use \AffWP\CLI\Sub_Commands\Base;
+use \WP_CLI\Utils;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -11,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.9
  *
- * @see \AffWP\Object\CLI
+ * @see \AffWP\CLI\Sub_Commands\Base
  */
-class CLI extends \AffWP\Object\CLI {
+class Sub_Commands extends Base {
 
 	/**
 	 * Visit display fields.
@@ -44,7 +45,7 @@ class CLI extends \AffWP\Object\CLI {
 	 * @see \AffWP\Visit\CLI\Fetcher
 	 */
 	public function __construct() {
-		$this->fetcher = new CLI\Fetcher();
+		$this->fetcher = new Fetcher();
 	}
 
 	/**
@@ -461,4 +462,4 @@ class CLI extends \AffWP\Object\CLI {
 
 }
 
-\WP_CLI::add_command( 'affwp visit', 'AffWP\Visit\CLI' );
+\WP_CLI::add_command( 'affwp visit', 'AffWP\Visit\CLI\Sub_Commands' );

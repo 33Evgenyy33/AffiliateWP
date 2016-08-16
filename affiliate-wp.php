@@ -367,8 +367,8 @@ final class Affiliate_WP {
 		require_once AFFILIATEWP_PLUGIN_DIR . 'includes/scripts.php';
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/class-cli.php';
-			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/class-object-cli.php';
+			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/class-command.php';
+			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/class-sub-commands-base.php';
 
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/utils/class-affiliate-cli-fetcher.php';
 			require_once AFFILIATEWP_PLUGIN_DIR . 'includes/cli/utils/class-creative-cli-fetcher.php';

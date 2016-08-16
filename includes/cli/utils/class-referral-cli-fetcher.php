@@ -1,6 +1,8 @@
 <?php
 namespace AffWP\Referral\CLI;
 
+use \WP_CLI\Fetchers\Base;
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -11,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @see \WP_CLI\Fetchers\Base
  */
-class Fetcher extends \WP_CLI\Fetchers\Base {
+class Fetcher extends Base {
 
 	/**
 	 * Not found message.

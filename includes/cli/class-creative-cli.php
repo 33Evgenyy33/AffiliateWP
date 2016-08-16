@@ -1,6 +1,7 @@
 <?php
-namespace AffWP\Creative;
+namespace AffWP\Creative\CLI;
 
+use \AffWP\CLI\Sub_Commands\Base;
 use \WP_CLI\Utils as Utils;
 
 // Exit if accessed directly
@@ -11,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.9
  * 
- * @see \AffWP\Object\CLI
+ * @see \AffWP\CLI\Sub_Commands\Base
  */
-class CLI extends \AffWP\Object\CLI {
+class Sub_Commands extends Base {
 
 	/**
 	 * Referral display fields.
@@ -40,7 +41,7 @@ class CLI extends \AffWP\Object\CLI {
 	 * @see \AffWP\Creative\CLI\Fetcher
 	 */
 	public function __construct() {
-		$this->fetcher = new CLI\Fetcher();
+		$this->fetcher = new Fetcher();
 	}
 
 	/**
@@ -332,4 +333,4 @@ class CLI extends \AffWP\Object\CLI {
 
 }
 
-\WP_CLI::add_command( 'affwp creative', 'AffWP\Creative\CLI' );
+\WP_CLI::add_command( 'affwp creative', 'AffWP\Creative\CLI\Sub_Commands' );

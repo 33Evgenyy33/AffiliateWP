@@ -1,17 +1,17 @@
 <?php
-namespace AffWP;
+namespace AffWP\CLI;
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Implements the top-level affwp CLI command.
+ * Implements the top-level affwp Command command.
  *
  * @since 1.9
  *
  * @see \WP_CLI_Command
  */
-class CLI extends \WP_CLI_Command {
+class Command extends \WP_CLI_Command {
 
 	/**
 	 * Prints information about AffiliateWP.
@@ -234,4 +234,4 @@ class CLI extends \WP_CLI_Command {
 	}
 }
 
-\WP_CLI::add_command( 'affwp', 'AffWP\CLI' );
+\WP_CLI::add_command( 'affwp', 'AffWP\CLI\Command' );
