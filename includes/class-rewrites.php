@@ -140,10 +140,10 @@ class Affiliate_WP_Rewrites {
 	 * @deprecated 1.9
 	 * @return string
 	 */
-	public function prevent_canonical_redirect( $redirect_deprecated = null, $requested_deprecated = null ) {
+	public function prevent_canonical_redirect( $redirect_url, $requested_url ) {
 		_deprecated_function( __METHOD__, '1.9', 'add_rewrite_endpoint( affiliate_wp()->tracking->get_referral_var(), EP_ALL, false );' );
 
-		return '';
+		return $redirect_url;
 	}
 
 }
