@@ -77,56 +77,26 @@ class Sub_Commands extends Base {
 	 *
 	 * ## OPTIONS
 	 *
-	 * <username|ID>
-	 * : Affiliate username or ID
-	 *
-	 * <referrals>
-	 * : Referral ID or comma-separated list of referral IDs to associate with the payout.
-	 *
-	 * * Pass 'all' to generate a payout for all unpaid referrals for this affiliate.
-	 * * Pass 'filter' to filter referrals using the amount and/or date options.
-	 *
-	 * [--amount=<number>]
-	 * : Payout amount. Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
-	 *
-	 * [--amount_compare=<operator>]
-	 * : Comparison operator to use in conjunction with --amount. Accepts '>', '<', '>=', '<=', '=', or '!='.
-	 *
-	 * Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
-	 *
-	 * [--amount_min=<number>]
-	 * : Minimum amount to search for. --amount_max must also be passed for this to work.
-	 *
-	 * Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
-	 *
-	 * [--amount_max=<number>]
-	 * : Maximum amount to search for. --amount_min must also be passed for this to work.
-	 *
-	 * Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
-	 *
-	 * [--date=<date>]
-	 * : Date to pay out referrals for. Intended to be used in conjunction with the 'filter' option for the
-	 * <referrals> argument. Should be used in place of --date_start and/or --date_end.
-	 *
 	 * [--start_date=<date>]
 	 * : Starting date to pay out referrals for. Can be used without --date_end to pay out referrals
 	 * on or after this date.
-	 *
-	 * Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
 	 *
 	 * [--end_date=<date>]
 	 * : Starting date to pay out referrals for. Can be used without --date_start to pay out referrals
 	 * on or before this date.
 	 *
-	 * Intended to be used in conjunction with the 'filter' option for the <referrals> argument.
+	 * [--min_earnings=<amount>]
+	 * : Minimum total earnings required to generate a payout for an affiliate. Compared as greater than or equal to.
 	 *
-	 * [--method=<method>]
-	 * : Payout method. Default empty.
+	 * If omitted, minimum earnings required will be 0.
 	 *
-	 * [--status=<status>]
-	 * : Payout status. Accepts 'paid', or 'failed'.
+	 * [--payout_method=<method>]
+	 * : Payout method. Default 'cli'.
 	 *
-	 * If not specified, 'paid' will be used.
+	 * [--referral_status=<status>]
+	 * : Status to retrieve referrals for. Accepts any valid referral status.
+	 *
+	 * If omitted, 'unpaid' will be used.
 	 *
 	 * ## EXAMPLES
 	 *
@@ -146,95 +116,82 @@ class Sub_Commands extends Base {
 	 * @param array $assoc_args Associated arguments (flags).
 	 */
 	public function create( $args, $assoc_args ) {
-		if ( empty( $args[0] ) ) {
-			\WP_CLI::error( __( 'A valid affiliate username or ID must be specified as the first argument.', 'affiliate-wp' ) );
-		}
-
-		if ( empty( $args[1] ) ) {
-			\WP_CLI::error( __( 'A valid referral ID, comma-separated list of IDs, or "all" must be specified as the second argument', 'affiliate-wp' ) );
-		}
-
-		if ( ! $affiliate = affwp_get_affiliate( $args[0] ) ) {
-			\WP_CLI::error( sprintf( __( 'An affiliate with the ID or username "%s" does not exist. See wp affwp affiliate create for adding affiliates.', 'affiliate-wp' ), $args[0] ) );
-		}
 
 		$data = array();
 
-		// Grab flag values.
-		$data['payout_method']  = Utils\get_flag_value( $assoc_args, 'method'        , ''     );
-		$data['status']         = Utils\get_flag_value( $assoc_args, 'status'        , 'paid' );
-		$data['affiliate_id']   = $affiliate->ID;
-
 		$referral_args = array(
-			'number'       => - 1,
-			'status'       => 'unpaid',
-			'affiliate_id' => $affiliate->ID,
-			'fields'       => 'ids',
+			'number' => - 1,
+			'fields' => 'ids',
 		);
 
-		if ( 'all' === $args[1] ) {
-			$data['referrals'] = affiliate_wp()->referrals->get_referrals( $referral_args );
-		} elseif ( 'filter' === $args[1] ) {
-			// Amounts filters.
-			$amount         = Utils\get_flag_value( $assoc_args, 'amount',         '' );
-			$amount_compare = Utils\get_flag_value( $assoc_args, 'amount_compare', '' );
-			$amount_min     = Utils\get_flag_value( $assoc_args, 'amount_min',     0  );
-			$amount_max     = Utils\get_flag_value( $assoc_args, 'amount_max',     0  );
+		$start_date = Utils\get_flag_value( $assoc_args, 'start_date',   '' );
+		$end_date   = Utils\get_flag_value( $assoc_args, 'end_date',     '' );
+		$minimum    = Utils\get_flag_value( $assoc_args, 'min_earnings', '' );
 
-			if ( ! empty( $amount_min ) && ! empty( $amount_max ) ) {
-				$referral_args['amount'] = array(
-					'min' => $amount_min,
-					'max' => $amount_max
-				);
-			} elseif ( ! empty( $amount ) ) {
+		if ( ! empty( $start_date ) ) {
+			$referral_args['date']['start'] = sanitize_text_field( $start_date );
+		}
 
-				$referral_args['amount'] = $amount;
+		if ( ! empty( $end_date ) ) {
+			$referral_args['date']['end'] = sanitize_text_field( $end_date );
+		}
 
-				if ( ! empty( $amount_compare ) ) {
-					$referral_args['amount_compare'] = $amount_compare;
+		if ( ! empty( $minimum ) ) {
+			$minimum = absint( $minimum );
+		}
+
+		$referral_args['status'] = Utils\get_flag_value( $assoc_args, 'referral_status', 'unpaid' );
+
+		$referrals = affiliate_wp()->referrals->get_referrals( $referral_args );
+
+		if ( empty( $referrals ) ) {
+			\WP_CLI::warning( __( 'No referrals were found matching your criteria. Please try again.', 'affiliate-wp' ) );
+		}
+
+		$maps = affiliate_wp()->affiliates->payouts->get_affiliate_ids_by_referrals( $referrals, $referral_args['status'] );
+
+		$to_pay = array();
+
+		foreach ( $maps as $affiliate_id => $referrals ) {
+			$amount = 0;
+
+			foreach( $referrals as $referral_id ) {
+				if ( $referral = affwp_get_referral( $referral_id ) ) {
+					$amount += $referral->amount;
 				}
 			}
 
-			// Date filters.
-			$date       = Utils\get_flag_value( $assoc_args, 'date',       '' );
-			$start_date = Utils\get_flag_value( $assoc_args, 'start_date', '' );
-			$end_date   = Utils\get_flag_value( $assoc_args, 'end_date',   '' );
-
-			if ( ! empty( $start_date ) && ! empty( $end_date ) ) {
-				$referral_args['date'] = array(
-					'start' => $start_date,
-					'end'   => $end_date
+			if ( $amount >= $minimum ) {
+				$to_pay[ $affiliate_id ] = array(
+					'referrals' => $maps[ $affiliate_id ],
+					'amount'    => $amount,
 				);
-			} elseif ( ! empty( $start_date ) && empty( $end_date ) ) {
-				$referral_args['date']['start'] = $start_date;
-			} elseif ( ! empty( $end_date ) && empty( $start_date ) ) {
-				$referral_args['date']['end'] = $end_date;
-			} elseif ( ! empty( $date ) ) {
-				$referral_args['date'] = $date;
 			}
-
-			if ( empty( $referral_args['date'] ) || ( empty( $referral_args['amount'] ) ) ) {
-				\WP_CLI::error( __( 'Date or amount parameters must be defined to retrieve referrals using the "filter" option.', 'affiliate-wp' ) );
-			}
-
-			$data['referrals'] = affiliate_wp()->referrals->get_referrals( $referral_args );
-		} elseif ( false !== strpos( $args[1], ',' ) ) {
-			$data['referrals'] = wp_parse_id_list( $args[1] );
-		} else {
-			$data['referrals'] = $args[1];
 		}
 
-		if ( ! in_array( $data['status'], array( 'paid', 'failed' ) ) ) {
-			$data['status'] = 'paid';
-		}
+		// Grab flag values.
+		$data['payout_method'] = Utils\get_flag_value( $assoc_args, 'payout_method', 'cli' );
 
-		$payout_id = affwp_add_payout( $data );
-
-		if ( $payout_id ) {
-			$payout = affwp_get_payout( $payout_id );
-			\WP_CLI::success( sprintf( __( 'A payout with the ID "%d" has been created.', 'affiliate-wp' ), $payout->ID ) );
+		if ( empty( $to_pay ) ) {
+			\WP_CLI::warning( __( 'No affiliates matched the minimum earnings amount in order to generate a payout.', 'affiliate-wp' ) );
 		} else {
-			\WP_CLI::error( __( 'The payout could not be added.', 'affiliate-wp' ) );
+			foreach ( $to_pay as $affiliate_id => $payout_data ) {
+				if ( false !== $payout_id = affwp_add_payout( array(
+					'affiliate_id'  => $affiliate_id,
+					'referrals'     => $payout_data['referrals'],
+					'payout_method' => $data['payout_method'],
+				) ) ) {
+					\WP_CLI::success( sprintf( __( 'A payout has been created for Affiliate #%1$d for %2$s.', 'affiliate-wp' ),
+						$affiliate_id,
+						html_entity_decode( affwp_currency_filter( affwp_format_amount( $payout_data['amount'] ) ) )
+					) );
+				} else {
+					\WP_CLI::warning( sprintf( __( 'There was a problem generating a payout for Affiliate #%1$d for %2$s.', 'affiliate-wp' ),
+						$affiliate_id,
+						html_entity_decode( affwp_currency_filter( affwp_format_amount( $payout_data['amount'] ) ) )
+					) );
+				}
+			}
 		}
 	}
 
