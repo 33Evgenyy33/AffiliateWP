@@ -154,7 +154,7 @@ $payout = affwp_get_payout( absint( $_GET['payout_id'] ) );
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Payout object.
 	 */
-	do_action( 'affwp_edit_affiliate_bottom', $affiliate );
+	do_action( 'affwp_edit_payout_bottom', $affiliate );
 	?>
 
 </div>
