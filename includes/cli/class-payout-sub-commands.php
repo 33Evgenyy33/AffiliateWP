@@ -195,8 +195,126 @@ class Sub_Commands extends Base {
 		}
 	}
 
+	/**
+	 * Updates a payout.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <payout_id>
+	 * : ID of the payout to update.
+	 *
+	 * [--payout_method=<method>]
+	 * : New payout method.
+	 *
+	 * [--status=<status>]
+	 * : New payout status. Accepts 'paid' or 'failed'. Will not be changed if invalid.
+	 *
+	 * [--amount=<number>]
+	 * : New payout amount.
+	 *
+	 * Note: care should be taken when updating this value as payouts are typically tied to
+	 * the sum total of the paid-out referrals attached to it.
+	 *
+	 * [--referrals=<referrals>]
+	 * : Updated referrals to associate with the payout. New referrals will be merged with currently associated ones.
+	 *
+	 * Note: care should be taken when updating this value as payouts referrals are typically tied with the affiliate
+	 * ID of and total amount.
+	 *
+	 * [--affiliate=<ID|username>]
+	 * : Affiliate to associate with the payout. Accepts an affiliate ID or user_login.
+	 *
+	 * Note: care should be taken when updating this value as referrals
+	 * tied to a payout are also typicalyl tied to the affiliate_id of record.
+	 *
+	 */
 	public function update( $args, $assoc_args ) {
-		parent::update( $args, $assoc_args );
+		if ( empty( $args[0] ) ) {
+			\WP_CLI::error( __( 'A valid payout ID must be supplied to update a payout', 'affiliate-wp' ) );
+		}
+
+		if ( ! $payout = affwp_get_payout( absint( $args[0] ) ) ) {
+			\WP_CLI::error( __( 'A valid payout ID must be supplied to update a payout', 'affiliate-wp' ) );
+		}
+
+		$payout_method = Utils\get_flag_value( $assoc_args, 'payout_method', '' );
+		$status        = Utils\get_flag_value( $assoc_args, 'status',        '' );
+		$amount        = Utils\get_flag_value( $assoc_args, 'amount',        '' );
+		$referrals     = Utils\get_flag_value( $assoc_args, 'referrals',     '' );
+		$affiliate     = Utils\get_flag_value( $assoc_args, 'affiliate',     '' );
+
+		$data = array();
+
+		if ( ! empty( $payout_method ) ) {
+			$data['payout_method'] = sanitize_text_field( $payout_method );
+		}
+
+		if ( ! empty( $status ) && in_array( $status, array( 'paid', 'failed' ), true ) ) {
+			$data['status'] = sanitize_text_field( $status );
+		}
+
+		if ( ! empty( $amount ) ) {
+			$data['amount'] = affwp_sanitize_amount( $amount );
+		}
+
+		if ( ! empty( $referrals ) ) {
+			if ( false !== strpos( $referrals, ',' ) ) {
+				$referrals = wp_parse_id_list( $referrals );
+			} else {
+				$referrals = (array) absint( $referrals );
+ 			}
+
+ 			$confirmed = array();
+
+			foreach ( $referrals as $referral_id ) {
+				if ( $referral = affwp_get_referral( $referral_id ) ) {
+					if ( empty( $referral->payout_id ) ) {
+						$confirmed[] = $referral_id;
+					} else {
+						\WP_CLI::warning( sprintf( __( "Referral #%d is already associated with payout #%d and has been skipped.", 'affiliate-wp' ),
+							$referral_id,
+							$referral->payout_id
+						) );
+					}
+				} else {
+					\WP_CLI::warning( sprintf( __( "Referral #%d is not valid and has been skipped.", 'affiliate-wp' ), $referral_id ) );
+				}
+			}
+
+			if ( ! empty( $confirmed ) ) {
+				\WP_CLI::confirm( __( 'Are you sure you want to overwrite this payout\'s referrals?', 'affiliate-wp' ), $assoc_args );
+
+				$payout_referrals = empty( $payout->referrals ) ? array() : wp_parse_id_list( $payout->referrals );
+
+				$referrals = array_unique( array_merge( $payout_referrals, $confirmed ) );
+
+				$data['referrals'] = implode( ',', $referrals );
+			} else {
+				\WP_CLI::error( __( 'All values passed via the --referrals argument are invalid.', 'affiliate-wp' ) );
+			}
+		}
+
+		if ( ! empty( $affiliate ) ) {
+			if ( $affiliate = affwp_get_affiliate( $affiliate ) ) {
+				\WP_CLI::confirm( __( 'Are you sure you want to overwrite the affiliate associated with this payout?', 'affiliate-wp' ), $assoc_args );
+
+				$data['affiliate_id'] = $affiliate->ID;
+			} else {
+				\WP_CLI::error( __( 'The supplied affiliate ID or username is invalid and has been ignored.', 'affiliate-wp' ) );
+			}
+		}
+
+		if ( ! empty( $data ) ) {
+			$updated = affiliate_wp()->affiliates->payouts->update( $payout->ID, $data, '', 'payout' );
+		} else {
+			\WP_CLI::warning( __( 'No fields were specified for updating. For more information, see wp help affwp payout update.', 'affiliate-wp' ) );
+		}
+
+		if ( $updated ) {
+			\WP_CLI::success( sprintf( __( "Payout #%d has been updated successfully.", 'affiliate-wp' ), $payout->ID ) );
+		} else {
+			\WP_CLI::error( sprintf( __( "Payout #%d could not be updated due to an error.", 'affiliate-wp' ), $payout->ID ) );
+		}
 	}
 
 	/**
