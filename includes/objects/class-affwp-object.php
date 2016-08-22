@@ -195,16 +195,16 @@ abstract class Object {
 				$updated = affiliate_wp()->visits->update_visit( $this->ID, $this->to_array() );
 				break;
 
-			// @todo Update handler for payouts.
-			case 'payout':
-				$updated = false;
-				break;
-
 			default:
 				// Affiliates and Creatives have update() methods.
 				$db_groups = self::get_db_groups();
 
-				$updated = affiliate_wp()->{$db_groups->primary}->update( $this->ID, $this->to_array(), '', $object_type );
+				// Handle secondary groups.
+				if ( isset( $db_groups->secondary ) ) {
+					$updated = affiliate_wp()->{$db_groups->primary}->{$db_groups->secondary}->update( $this->ID, $this->to_array(), '', $object_type );
+				} else {
+					$updated = affiliate_wp()->{$db_groups->primary}->update( $this->ID, $this->to_array(), '', $object_type );
+				}
 				break;
 		}
 
