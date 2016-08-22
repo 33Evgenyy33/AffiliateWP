@@ -55,7 +55,7 @@ function affwp_payouts_admin() {
 			 *
 			 * @since 1.9
 			 */
-			do_action( 'affwp_affiliates_page_bottom' );
+			do_action( 'affwp_payouts_page_bottom' );
 			?>
 		</div>
 <?php
@@ -70,9 +70,9 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 }
 
 /**
- * AffWP_Affiliates_Table Class
+ * AffWP_Payouts_Table Class
  *
- * Renders the Affiliates table on the Affiliates page
+ * Renders the Payouts table on the Payouts page
  *
  * @since 1.0
  */
