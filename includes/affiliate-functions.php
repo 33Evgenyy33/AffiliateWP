@@ -321,7 +321,7 @@ function affwp_get_affiliate_rate( $affiliate = 0, $formatted = false, $product_
 	// Get rate in order of priority: Affiliate -> Product -> Global
 	$rate = affwp_abs_number_round( $affiliate->rate() );
 
-	$rate = ( null !== $rate ) ? $rate : $product_rate;
+	$rate = $affiliate->has_custom_rate() ? $rate : $product_rate;
 
 	// Get the referral rate type.
 	$type = $affiliate->rate_type();
