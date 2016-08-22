@@ -174,6 +174,7 @@ class Affiliate_WP_Shortcodes {
 				'description' => '',
 				'reference'   => '',
 				'context'     => '',
+				'campaign'    => '',
 				'status'      => ''
 			),
 			$atts,

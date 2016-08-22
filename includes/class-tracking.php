@@ -104,9 +104,10 @@ class Affiliate_WP_Tracking {
 		$defaults = array(
 			'amount'      => '',
 			'description' => '',
+			'reference'   => '',
 			'context'     => '',
 			'campaign'    => '',
-			'reference'   => ''
+			'status'      => ''
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -137,7 +138,7 @@ class Affiliate_WP_Tracking {
 			$args['campaign'] = sanitize_text_field( $_REQUEST['campaign'] );
 		}
 
-		$md5 = md5( $args['amount'] . $args['description'] . $args['reference'] . $args['context'] . $args['status'] );
+		$md5 = md5( $args['amount'] . $args['description'] . $args['reference'] . $args['context'] . $args['status'] . $args['campaign'] );
 
 ?>
 		<script type="text/javascript">
@@ -264,10 +265,10 @@ class Affiliate_WP_Tracking {
 				$this->log( sprintf( 'Valid affiliate ID, %d, in track_conversion()', $affiliate_id ) );
 			}
 
-			$md5 = md5( $_POST['amount'] . $_POST['description'] . $_POST['reference'] . $_POST['context'] . $_POST['status'] );
+			$md5 = md5( $_POST['amount'] . $_POST['description'] . $_POST['reference'] . $_POST['context'] . $_POST['status'] . $_POST['campaign'] );
 
 			if( $md5 !== $_POST['md5'] ) {
-				
+
 				if( $this->debug ) {
 					$this->log( sprintf( 'Invalid MD5 in track_conversion(). Needed: %s. Posted: %s', $md5, $_POST['md5'] ) );
 				}
@@ -736,9 +737,9 @@ class Affiliate_WP_Tracking {
 		if( $this->debug ) {
 
 			$this->logs->log( $message );
-			
+
 		}
-		
+
 	}
 
 	/**

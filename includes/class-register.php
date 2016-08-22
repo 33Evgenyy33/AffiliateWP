@@ -68,6 +68,10 @@ class Affiliate_WP_Register {
 				if ( empty( $field ) ) {
 					$this->add_error( $value['error_id'], $value['error_message'] );
 				}
+
+				if( 'affwp_user_url' === $field_name && false === filter_var( $field, FILTER_VALIDATE_URL ) ) {
+					$this->add_error( 'invalud_url', __( 'Please enter a valid website URL', 'affiliate-wp' ) );
+				}
 			}
 
 			if ( username_exists( $data['affwp_user_login'] ) ) {

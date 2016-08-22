@@ -71,12 +71,37 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 				$was_renewal = get_post_meta( $payment_id, '_edd_sl_is_renewal', true );
 
 				if ( $was_renewal ) {
-				
+
 					if( $this->debug ) {
 						$this->log( 'Referral not created because order was a renewal.' );
 					}
 
 					return;
+				}
+
+			}
+
+			if ( affiliate_wp()->settings->get( 'edd_disable_on_upgrades' ) ) {
+
+				$cart_contents = edd_get_cart_contents();
+
+				if ( is_array( $cart_contents ) ) {
+
+					foreach ( $cart_contents as $item ) {
+
+						if ( ! empty( $item['options']['is_upgrade'] ) ) {
+
+							if( $this->debug ) {
+
+								$this->log( 'Referral not created because order was an upgrade.' );
+
+							}
+
+							return;
+						}
+
+					}
+
 				}
 
 			}
@@ -92,7 +117,7 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 				if( $this->debug ) {
 					$this->log( 'Referral not created due to empty description.' );
 				}
-				
+
 				return;
 			}
 
@@ -130,6 +155,21 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 
 			}
 
+			if ( affiliate_wp()->settings->get( 'edd_disable_on_upgrades' ) ) {
+
+				$was_upgrade = get_post_meta( $payment_id, '_edd_sl_upgraded_payment_id', true );
+
+				if ( $was_upgrade ) {
+
+					if( $this->debug ) {
+						$this->log( 'Referral not created because order was an upgrade.' );
+					}
+
+					return;
+				}
+
+			}
+
 			$discounts = array_map( 'trim', explode( ',', $user_info['discount'] ) );
 
 			if ( empty( $discounts ) ) {
@@ -148,7 +188,7 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 				$this->affiliate_id = $affiliate_id;
 
 				if ( ! affiliate_wp()->tracking->is_valid_affiliate( $this->affiliate_id ) ) {
-				
+
 					if( $this->debug ) {
 						$this->log( 'Referral not created because affiliate is invalid.' );
 					}
@@ -175,7 +215,7 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 					// new referral
 
 					if ( 0 == $referral_total && affiliate_wp()->settings->get( 'ignore_zero_referrals' ) ) {
-					
+
 						if( $this->debug ) {
 							$this->log( 'Referral not created due to 0.00 amount.' );
 						}
@@ -577,6 +617,12 @@ class Affiliate_WP_EDD extends Affiliate_WP_Base {
 			$settings[ 'edd_disable_on_renewals' ] = array(
 				'name' => __( 'Disable Renewal Referrals', 'affiliate-wp' ),
 				'desc' => __( 'Should AffiliateWP prevent referral commissions from being recorded on renewal purchases with EDD Software Licensing?', 'affiliate-wp' ),
+				'type' => 'checkbox'
+			);
+
+			$settings[ 'edd_disable_on_upgrades' ] = array(
+				'name' => __( 'Disable Referrals on Upgrades', 'affiliate-wp' ),
+				'desc' => __( 'Should AffiliateWP prevent referral commissions from being recorded on license upgrade purchases with EDD Software Licensing?', 'affiliate-wp' ),
 				'type' => 'checkbox'
 			);
 

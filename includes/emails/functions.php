@@ -176,3 +176,24 @@ function affwp_email_tag_affiliate_id( $affiliate_id = 0 ) {
 	return $affiliate_id;
 }
 
+/**
+ * Email template tag: referral rate
+ * The affiliate's referral rate as shown from Affiliate -> Affiliates
+ *
+ * @since 1.9
+ * @return string referral_rate
+ */
+function affwp_email_tag_referral_rate( $affiliate_id = 0 ) {
+	return affwp_get_affiliate_rate( $affiliate_id, true );
+}
+
+/**
+ * Email template tag: review URL
+ * Affiliate's review page URL
+ *
+ * @since 1.9
+ * @return string URL to the review page
+ */
+function affwp_email_tag_review_url( $affiliate_id = 0 ) {
+	return admin_url( 'admin.php?page=affiliate-wp-affiliates&affiliate_id=' . absint( $affiliate_id ) . '&action=review_affiliate' );
+}

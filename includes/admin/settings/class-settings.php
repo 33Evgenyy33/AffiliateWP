@@ -32,6 +32,10 @@ class Affiliate_WP_Settings {
 		add_filter( 'affwp_settings_sanitize_checkbox', array( $this, 'sanitize_cb_fields' ), 10, 2 );
 		add_filter( 'affwp_settings_sanitize_number', array( $this, 'sanitize_number_fields' ), 10, 2 );
 		add_filter( 'affwp_settings_sanitize_rich_editor', array( $this, 'sanitize_rich_editor_fields' ), 10, 2 );
+
+		// Capabilities
+		add_filter( 'option_page_capability_affwp_settings', array( $this, 'option_page_capability' ) );
+
 	}
 
 	/**
@@ -357,6 +361,16 @@ class Affiliate_WP_Settings {
 	*/
 	public function sanitize_rich_editor_fields( $value = '', $key = '' ) {
 		return wp_kses_post( $value );
+	}
+
+	/**
+	 * Set the capability needed to save affiliate settings
+	 *
+	 * @since 1.9
+	 * @return string
+	*/
+	public function option_page_capability( $capability ) {
+		return 'manage_affiliate_options';
 	}
 
 	/**
