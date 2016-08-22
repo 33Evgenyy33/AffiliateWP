@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Core class that implements a database layer for payouts.
+ *
+ * @since 1.9
+ *
+ * @see \Affiliate_WP_DB
+ */
 class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 	/**
@@ -24,7 +30,7 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	public $query_object_type = 'AffWP\Affiliate\Payout';
 
 	/**
-	 * Affiliate_WP_Payouts_DB constructor.
+	 * Constructor.
 	 *
 	 * @since 1.9
 	 * @access public
