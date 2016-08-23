@@ -31,17 +31,17 @@ class Affiliate_WP_Referral_Payout_Export extends Affiliate_WP_Referral_Export {
 	/**
 	 * Array of referrals to export.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var array
+	 * @since  1.9
+	 * @var    array
 	 */
 	public $referrals = array();
 
 	/**
 	 * Constructor.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function __construct() {
 		$this->referrals = $this->get_referrals_for_export();
@@ -153,8 +153,8 @@ class Affiliate_WP_Referral_Payout_Export extends Affiliate_WP_Referral_Export {
 	/**
 	 * Retrieves referrals for export.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array Array of referrals for export.
 	 */
@@ -171,8 +171,8 @@ class Affiliate_WP_Referral_Payout_Export extends Affiliate_WP_Referral_Export {
 	/**
 	 * Generates payout objects batched by affiliate.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function generate_payouts() {
 		$referrals = wp_list_pluck( $this->referrals, 'referral_id' );
