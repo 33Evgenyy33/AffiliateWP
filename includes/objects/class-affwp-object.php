@@ -197,7 +197,7 @@ abstract class Object {
 				break;
 
 			default:
-				// Affiliates, Creatives, and Payouts have update() methods.
+				// Affiliates and Creatives have update() methods.
 				$db_groups = self::get_db_groups();
 
 				// Handle secondary groups.
