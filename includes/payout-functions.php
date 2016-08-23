@@ -36,7 +36,7 @@ function affwp_get_payout( $payout = 0 ) {
  *     Optional. Arguments for adding a new payout record. Default empty array.
  *
  *     @type int          $affiliate_id  Affiliate ID.
- *     @type int          $referrals     Referral ID or comma-separated list of IDs.
+ *     @type int|array    $referrals     Referral ID or array of IDs.
  *     @type string       $amount        Payout amount.
  *     @type string       $payout_method Payout method.
  *     @type string       $status        Payout status. Default 'paid'.

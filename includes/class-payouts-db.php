@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Core class that implements a database layer for payouts.
+ *
+ * @since 1.9
+ *
+ * @see \Affiliate_WP_DB
+ */
 class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 
 	/**
@@ -8,26 +14,26 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	 * @internal DO NOT change. This is used externally both as a cache group and shortcut
 	 *           for accessing db class instances via affiliate_wp()->{$cache_group}->*.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $cache_group = 'payouts';
 
 	/**
 	 * Object type to query for.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $query_object_type = 'AffWP\Affiliate\Payout';
 
 	/**
-	 * Affiliate_WP_Payouts_DB constructor.
+	 * Constructor.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	*/
 	public function __construct() {
 		global $wpdb;
@@ -45,8 +51,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves a payout object.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @see Affiliate_WP_DB::get_core_object()
 	 *
@@ -60,8 +66,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves table columns and date types.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	*/
 	public function get_columns() {
 		return array(
@@ -78,8 +84,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves default column values.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function get_column_defaults() {
 		return array(
@@ -92,8 +98,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Adds a new single payout.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array $args {
 	 *     Optional. Array of arguments for adding a new payout. Default empty array.
@@ -204,8 +210,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Builds an associative array of affiliate IDs to their corresponding referrals.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array  $referrals Array of referral IDs.
 	 * @param string $status    Optional. Required referral status. Pass an empty string to disable.
@@ -234,8 +240,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	 * Builds an array of payout IDs given an associative array of affiliate IDS to their
 	 * corresponding referral IDs.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array $affiliates Associative array of affiliate IDs to their corresponding
 	 *                          referral IDs.
@@ -258,8 +264,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves all payout IDs for a set of referrals, regardless of affiliate association.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array  $referrals Array of referral IDs.
 	 * @param string $status    Optional. Required referral status. Pass an empty string to disable.
@@ -273,8 +279,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieve payouts from the database
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array $args {
 	 *     Optional. Arguments for querying affiliates. Default empty array.
@@ -591,8 +597,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves the number of results found for a given query.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param array $args Arguments to pass to get_payouts().
 	 * @return int Number of payouts.
@@ -604,8 +610,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Checks if a payout exists.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	*/
 	public function payout_exists( $payout_id = 0 ) {
 
@@ -623,8 +629,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Retrieves an array of referral IDs stored for the payout.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param AffWP\Affiliate\Payout|int $payout Payout object or ID.
 	 * @return array List of referral IDs.
@@ -641,8 +647,8 @@ class Affiliate_WP_Payouts_DB extends Affiliate_WP_DB {
 	/**
 	 * Creates the table.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	*/
 	public function create_table() {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

@@ -5,9 +5,9 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * The payouts class instance variable.
 	 *
-	 * @var Affiliate_WP_Payouts_DB
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
+	 * @var    Affiliate_WP_Payouts_DB
 	 */
 	public $payouts;
 
@@ -17,26 +17,26 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	 * @internal DO NOT change. This is used externally both as a cache group and shortcut
 	 *           for accessing db class instances via affiliate_wp()->{$cache_group}->*.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $cache_group = 'affiliates';
 
 	/**
 	 * Object type to query for.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $query_object_type = 'AffWP\Affiliate';
 
 	/**
 	 * Get things started
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function __construct() {
 		global $wpdb;
@@ -56,8 +56,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Retrieves an affiliate object.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @see Affiliate_WP_DB::get_core_object()
 	 *
@@ -71,8 +71,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Get table columns and date types
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function get_columns() {
 		return array(
@@ -92,8 +92,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Get default column values
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function get_column_defaults() {
 		return array(
@@ -104,10 +104,10 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Retrieve affiliates from the database
 	 *
-	 * @since 1.0
-	 * @since 1.8 The `$affiliate_id` argument was added. `$orderby` now accepts referral statuses.
-	 *            and 'username'.
 	 * @access public
+	 * @since  1.0
+	 * @since  1.8 The `$affiliate_id` argument was added. `$orderby` now accepts referral statuses.
+	 *             and 'username'.
 	 *
 	 * @param array $args {
 	 *     Optional. Arguments for querying affiliates. Default empty array.
@@ -405,8 +405,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Retrieve the name of the affiliate
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function get_affiliate_name( $affiliate_id = 0 ) {
 		global $wpdb;
@@ -426,8 +426,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Checks if an affiliate exists
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function affiliate_exists( $affiliate_id = 0 ) {
 
@@ -493,8 +493,8 @@ class Affiliate_WP_DB_Affiliates extends Affiliate_WP_DB {
 	/**
 	 * Create the table
 	 *
-	 * @access  public
-	 * @since   1.0
+	 * @access public
+	 * @since  1.0
 	*/
 	public function create_table() {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

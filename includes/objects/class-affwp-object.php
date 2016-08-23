@@ -21,17 +21,17 @@ abstract class Object {
 	/**
 	 * Whether the object members have been filled.
 	 *
-	 * @since 1.9
 	 * @access protected
-	 * @var bool|null
+	 * @since  1.9
+	 * @var    bool|null
 	 */
 	protected $filled = null;
 
 	/**
 	 * Retrieves the object instance.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @param int $object Object ID.
@@ -73,8 +73,8 @@ abstract class Object {
 	/**
 	 * Retrieves the built cache key for the given single object.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @see Object::get_instance()
@@ -90,8 +90,9 @@ abstract class Object {
 	/**
 	 * Object constructor.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
+	 *
 	 * @param mixed $object Object to populate members for.
 	 */
 	public function __construct( $object ) {
@@ -103,8 +104,8 @@ abstract class Object {
 	/**
 	 * Retrieves the value of a given property.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param string $key Property to retrieve a value for.
 	 * @return mixed Otherwise, the value of the property if set.
@@ -130,8 +131,8 @@ abstract class Object {
 	/**
 	 * Sets a property.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @see set()
 	 *
@@ -149,8 +150,8 @@ abstract class Object {
 	 *           this method is also used directly by __set() which is leveraged for
 	 *           magic properties.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param string $key   Property name.
 	 * @param mixed  $value Property value.
@@ -178,8 +179,8 @@ abstract class Object {
 	/**
 	 * Saves an object with current property values.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return bool True on success, false on failure.
 	 */
@@ -199,6 +200,7 @@ abstract class Object {
 				// Affiliates, Creatives, and Payouts have update() methods.
 				$db_groups = self::get_db_groups();
 
+				// Handle secondary groups.
 				if ( isset( $db_groups->secondary ) ) {
 					$updated = affiliate_wp()->{$db_groups->primary}->{$db_groups->secondary}->update( $this->ID, $this->to_array(), '', $object_type );
 				} else {
@@ -217,8 +219,10 @@ abstract class Object {
 	/**
 	 * Splits the db groups if there is more than one.
 	 *
-	 * @since 1.9
+	 * CURIE is ':'.
+	 *
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @return object Object containing the primary and secondary group values.
@@ -243,8 +247,8 @@ abstract class Object {
 	/**
 	 * Converts the given object to an array.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param mixed $object Object.
 	 * @return array Array version of the given object.
@@ -256,8 +260,8 @@ abstract class Object {
 	/**
 	 * Fills object members.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @param object|array $object Object or array of object data.
@@ -291,8 +295,8 @@ abstract class Object {
 	 *
 	 * Sub-class should override this method.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @param string $field Object field.

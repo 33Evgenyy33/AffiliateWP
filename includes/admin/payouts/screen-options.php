@@ -49,12 +49,11 @@ add_action( 'load-affiliates_page_affiliate-wp-payouts', 'affwp_payouts_screen_o
  * Renders per-page screen option value for the Payouts list table.
  *
  * @since 1.9
- * @todo Docs
  *
- * @param  bool|int $status
- * @param  string   $option
- * @param  mixed    $value
- * @return mixed
+ * @param bool|int $status Screen option value.
+ * @param string   $option The option name.
+ * @param int      $value  The number of rows to use.
+ * @return bool|int Screen option value.
  */
 function affwp_payouts_set_screen_option( $status, $option, $value ) {
 
