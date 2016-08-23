@@ -25,73 +25,73 @@ final class Payout extends \AffWP\Object {
 	/**
 	 * Payout ID.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var int
+	 * @since  1.9
+	 * @var    int
 	 */
 	public $payout_id = 0;
 
 	/**
 	 * Affiliate ID.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var int
+	 * @since  1.9
+	 * @var    int
 	 */
 	public $affiliate_id = 0;
 
 	/**
 	 * IDs for referrals associated with the payout.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var array
+	 * @since  1.9
+	 * @var    array
 	 */
 	public $referrals = array();
 
 	/**
 	 * Payout amount.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var float
+	 * @since  1.9
+	 * @var    float
 	 */
 	public $amount;
 
 	/**
 	 * Payout method.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $payout_method;
 
 	/**
 	 * Payout status.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $status;
 
 	/**
 	 * Payout date.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $date;
 
 	/**
 	 * Token to use for generating cache keys.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
+	 * @var    string
 	 * @static
-	 * @var string
 	 *
 	 * @see AffWP\Object::get_cache_key()
 	 */
@@ -113,18 +113,18 @@ final class Payout extends \AffWP\Object {
 	 *
 	 * Used as the cache group and for accessing object DB classes in the parent.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
+	 * @var    string
 	 * @static
-	 * @var string
 	 */
 	public static $object_type = 'payouts';
 
 	/**
 	 * Sanitizes an affiliate object field.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 * @static
 	 *
 	 * @param string $field        Object field.
