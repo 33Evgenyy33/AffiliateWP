@@ -48,6 +48,23 @@ $affiliate_id = isset( $_GET['affiliate_id'] ) ? absint( $_GET['affiliate_id'] )
 	$graph->set( 'x_mode', 'time' );
 	$graph->set( 'affiliate_id', $affiliate_id );
 	$graph->display();
-	
-	do_action( 'affwp_view_affiliate_report_bottom' ); ?>
+
+	// Load WP_List_Table if not loaded
+	if ( ! class_exists( 'WP_List_Table' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
+	}
+
+	$payouts_table = new AffWP_Payouts_Table( array(
+		'payout_args' => array(
+			'affiliate_id' => $affiliate_id
+		)
+	) );
+	$payouts_table->prepare_items();
+	?>
+	<h2><?php _e( 'Recent Payouts', 'affiliate-wp' ); ?></h2>
+
+	<?php $payouts_table->views(); ?>
+	<?php $payouts_table->display(); ?>
+
+	<?php do_action( 'affwp_view_affiliate_report_bottom' ); ?>
 </div>
