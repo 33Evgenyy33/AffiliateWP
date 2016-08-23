@@ -81,53 +81,53 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Default number of items to show per page
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $per_page = 30;
 
 	/**
 	 * Total number of payouts found.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var int
+	 * @since  1.9
+	 * @var    int
 	 */
 	public $total_count;
 
 	/**
 	 * Number of 'paid' payouts found.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $paid_count;
 
 	/**
 	 * Number of 'failed' payouts found
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var string
+	 * @since  1.9
+	 * @var    string
 	 */
 	public $failed_count;
 
 	/**
 	 * Optional arguments to pass when preparing items.
 	 *
-	 * @since 1.9
 	 * @access public
-	 * @var array
+	 * @since  1.9
+	 * @var    array
 	 */
 	public $payout_args = array();
 
 	/**
 	 * Payouts table constructor.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @see WP_List_Table::__construct()
 	 */
@@ -154,8 +154,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Displays the search field.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param string $text     Label for the search box.
 	 * @param string $input_id ID of the search box.
@@ -184,8 +184,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	 *
 	 * @internal Extended here to disable the (sic) $referer argument in wp_nonce_field().
 	 *
-	 * @since 1.9
 	 * @access protected
+	 * @since  1.9
 	 *
 	 * @param string $which Which tablenav this is. Accepts either 'top' or 'bottom'.
 	 */
@@ -213,8 +213,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves the payout view types.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array $views All the views available.
 	 */
@@ -237,8 +237,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves the payouts table columns.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array $columns Array of all the payouts list table columns.
 	 */
@@ -268,8 +268,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves the payouts table's sortable columns.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array Array of all the sortable columns
 	 */
@@ -287,8 +287,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the checkbox column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Checkbox markup.
@@ -300,8 +300,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Payout ID' column
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Payout ID.
@@ -323,8 +323,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Amount' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Payout ID.
@@ -346,8 +346,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Affiliate' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Linked affiliate name and ID.
@@ -386,8 +386,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Referrals' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Linked affiliate name and ID.
@@ -420,8 +420,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Payout Method' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Payout method.
@@ -443,8 +443,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Date' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Localized payout date.
@@ -466,8 +466,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Actions' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @see WP_List_Table::row_actions()
 	 *
@@ -498,8 +498,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the 'Status' column.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout Current payout object.
 	 * @return string Payout status.
@@ -524,8 +524,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Renders the default output for a custom column in the payouts list table.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @param \AffWP\Affiliate\Payout $payout      Current payout object.
 	 * @param string                  $column_name The name of the column.
@@ -550,8 +550,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Message to be displayed when there are no items.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	function no_items() {
 		_e( 'No payouts found.', 'affiliate-wp' );
@@ -560,8 +560,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves the bulk actions.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array $actions Array of the bulk actions.
 	 */
@@ -583,8 +583,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Processes the bulk actions.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function process_bulk_action() {
 		// @todo Hook up bulk actions.
@@ -593,8 +593,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves the payout counts.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function get_payout_counts() {
 		$this->paid_count = affiliate_wp()->affiliates->payouts->count(
@@ -611,8 +611,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Retrieves all the data for all the payouts.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 *
 	 * @return array Array of all the data for the payouts.
 	 */
@@ -698,8 +698,8 @@ class AffWP_Payouts_Table extends WP_List_Table {
 	/**
 	 * Sets up the final data for the payouts list table.
 	 *
-	 * @since 1.9
 	 * @access public
+	 * @since  1.9
 	 */
 	public function prepare_items() {
 		$per_page = $this->get_items_per_page( 'affwp_edit_payouts_per_page', $this->per_page );
