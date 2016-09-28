@@ -12,9 +12,9 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/affiliates/class-list-tabl
  */
 function affwp_affiliates_screen_options() {
 
-	$screen = get_current_screen();
+	$screen = affwp_get_current_screen();
 
-	if ( $screen->id !== 'affiliates_page_affiliate-wp-affiliates' ) {
+	if ( $screen !== 'affiliate-wp-affiliates' ) {
 		return;
 	}
 
@@ -43,7 +43,6 @@ function affwp_affiliates_screen_options() {
 	do_action( 'affwp_affiliates_screen_options', $screen );
 
 }
-add_action( 'load-affiliates_page_affiliate-wp-affiliates', 'affwp_affiliates_screen_options' );
 
 /**
  * Per page screen option value for the Affiliates list table

@@ -727,3 +727,24 @@ function affwp_get_pages( $force = false ) {
 	return $pages_options;
 
 }
+
+/**
+ * Returns the current AffiliateWP admin screen
+ *
+ * @since  1.9.1
+ *
+ * @return bool|string  Returns
+ */
+function affwp_get_current_screen() {
+
+	if ( ! affwp_is_admin_page() ) {
+		return false;
+	}
+
+	$page_now = false;
+
+	$page_now = ( isset( $_GET['page'] ) ) ? sanitize_text_field( $_GET['page'] ) : false;
+
+	return $page_now;
+
+}

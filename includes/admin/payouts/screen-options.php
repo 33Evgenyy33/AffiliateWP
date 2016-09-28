@@ -20,9 +20,9 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/payouts/class-list-table.p
  */
 function affwp_payouts_screen_options() {
 
-	$screen = get_current_screen();
+	$screen = affwp_get_current_screen();
 
-	if ( $screen->id !== 'affiliates_page_affiliate-wp-payouts' ) {
+	if ( $screen !== 'affiliate-wp-payouts' ) {
 		return;
 	}
 

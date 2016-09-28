@@ -12,9 +12,9 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/visits/class-list-table.ph
  */
 function affwp_visits_screen_options() {
 
-	$screen = get_current_screen();
+	$screen = affwp_get_current_screen();
 
-	if ( $screen->id !== 'affiliates_page_affiliate-wp-visits' ) {
+	if ( $screen !== 'affiliate-wp-visits' ) {
 		return;
 	}
 

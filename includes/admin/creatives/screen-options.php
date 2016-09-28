@@ -12,9 +12,9 @@ require_once AFFILIATEWP_PLUGIN_DIR . 'includes/admin/creatives/class-list-table
  */
 function affwp_creatives_screen_options() {
 
-	$screen = get_current_screen();
+	$screen = affwp_get_current_screen();
 
-	if ( $screen->id !== 'affiliates_page_affiliate-wp-creatives' ) {
+	if ( $screen !== 'affiliate-wp-creatives' ) {
 		return;
 	}
 
